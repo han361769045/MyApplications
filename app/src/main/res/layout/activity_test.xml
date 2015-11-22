@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.TestRecycleViewActivity">
+
+    <com.luleo.myapplications.viewgroup.MyTitleBar
+        android:id="@+id/my_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="?attr/colorPrimary"
+        android:minHeight="50dp"
+        app:mNavButtonIcon="@mipmap/ic_launcher"
+        app:mRightButtonIcon="@mipmap/ic_launcher"
+        app:mTitle="测试"/>
+
+    <com.marshalchen.ultimaterecyclerview.CustomUltimateRecyclerview
+        android:id="@+id/ultimate_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:recyclerviewEmptyView="@layout/empty_view"
+        >
+    </com.marshalchen.ultimaterecyclerview.CustomUltimateRecyclerview>
+
+</LinearLayout>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.luleo.myapplications">
+
+    <!-- if you want to load images from the internet -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- if you want to load images from a file OR from the internet -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:name=".MyApplication_"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".activities.MainActivity_"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"
+            android:theme="@style/MainTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activities.ChatActivity_"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden">
+
+        </activity>
+
+        <activity
+            android:name=".activities.TestRecycleViewActivity_"
+            android:windowSoftInputMode="stateHidden"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity
+            android:name=".activities.VideoActivity_"
+            android:windowSoftInputMode="stateHidden"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity
+            android:name=".activities.VideoPlayerActivity_"
+            android:windowSoftInputMode="stateHidden"
+            >
+        </activity>
+
+
+    </application>
+
+</manifest>

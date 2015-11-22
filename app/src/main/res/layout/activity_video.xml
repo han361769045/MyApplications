@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <com.luleo.myapplications.viewgroup.MyTitleBar
+        android:id="@+id/my_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="?attr/colorPrimary"
+        android:minHeight="50dp"
+        app:mTitle="@string/chat" />
+
+    <com.marshalchen.ultimaterecyclerview.CustomUltimateRecyclerview
+        android:id="@+id/ultimate_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:recyclerviewEmptyView="@layout/empty_view"/>
+
+</LinearLayout>

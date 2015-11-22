@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="tabTitle">
+        <item>@string/home</item>
+        <item>@string/hot</item>
+        <item>@string/add</item>
+        <item>@string/cart</item>
+        <item>@string/mine</item>
+    </string-array>
+
+    <array name="tabIcon">
+        <item>@mipmap/ic_launcher</item>
+        <item>@mipmap/ic_launcher</item>
+        <item>@mipmap/ic_launcher</item>
+        <item>@mipmap/ic_launcher</item>
+    </array>
+
+
+    <string-array name="tabTag">
+        <item>home</item>
+        <item>hot</item>
+        <item>add</item>
+        <item>cart</item>
+        <item>mine</item>
+    </string-array>
+
+    <integer-array name="google_colors">
+        <item>@color/red</item>
+        <item>@color/gray</item>
+        <item>@color/blue</item>
+        <item>@color/orange1</item>
+    </integer-array>
+
+
+
+</resources>
