@@ -8,13 +8,6 @@
         <item>@string/mine</item>
     </string-array>
 
-    <array name="tabIcon">
-        <item>@mipmap/ic_launcher</item>
-        <item>@mipmap/ic_launcher</item>
-        <item>@mipmap/ic_launcher</item>
-        <item>@mipmap/ic_launcher</item>
-    </array>
-
 
     <string-array name="tabTag">
         <item>home</item>

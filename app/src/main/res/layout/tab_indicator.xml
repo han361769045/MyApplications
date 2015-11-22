@@ -6,8 +6,7 @@
     android:background="#ffffffff"
     android:gravity="center"
     android:orientation="vertical"
-    android:paddingBottom="3dp"
-    android:paddingTop="3dp">
+    android:paddingTop="5dp">
 
     <ImageView
         android:id="@+id/icon_tab"
@@ -18,5 +17,5 @@
         android:id="@+id/text_indicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp" />
+       />
 </LinearLayout>

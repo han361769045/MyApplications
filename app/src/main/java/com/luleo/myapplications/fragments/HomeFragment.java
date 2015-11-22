@@ -5,10 +5,13 @@ import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.luleo.myapplications.R;
 import com.luleo.myapplications.tools.AndroidTool;
+import com.luleo.myapplications.viewgroup.MyTitleBar;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.res.StringRes;
 
 /**
  * Created by leo on 2015/10/18.
@@ -22,12 +25,15 @@ public class HomeFragment extends  BaseFragment implements BaseSliderView.OnSlid
     @ViewById
     SliderLayout sliderLayout;
 
+    @FragmentArg
+    MyTitleBar myTitleBar;
 
 
+    @StringRes
+    String home;
 
     @AfterViews
     void afterView(){
-
 
 
         TextSliderView textSliderView1 = new TextSliderView(getActivity());
@@ -57,6 +63,7 @@ public class HomeFragment extends  BaseFragment implements BaseSliderView.OnSlid
         if (hidden){
             sliderLayout.stopAutoCycle();
         }else{
+            myTitleBar.setTitle(home);
             sliderLayout.startAutoCycle();
         }
 

@@ -2,6 +2,8 @@ package com.luleo.myapplications.viewgroup;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
@@ -22,7 +24,7 @@ import com.luleo.myapplications.R;
 /**
  * Created by leo on 2015/10/23.
  */
-public class MyTitleBar extends RelativeLayout {
+public class MyTitleBar extends RelativeLayout implements Parcelable{
 
     private static final String TAG = "MyTitleBar";
 
@@ -53,6 +55,31 @@ public class MyTitleBar extends RelativeLayout {
 
 
     private OnRightClickListener onRightClickListener;
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
+    }
+
+
+    public static final Parcelable.Creator<MyTitleBar> CREATOR = new Parcelable.Creator<MyTitleBar>()
+    {
+        public MyTitleBar createFromParcel(Parcel in)
+        {
+            return null;
+        }
+
+        @Override
+        public MyTitleBar[] newArray(int size) {
+            return new MyTitleBar[0];
+        }
+    };
+
 
 
     public interface OnNavigationClickListener{

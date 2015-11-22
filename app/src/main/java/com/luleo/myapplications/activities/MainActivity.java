@@ -1,6 +1,8 @@
 package com.luleo.myapplications.activities;
 
 
+import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -9,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TabHost;
+import android.widget.TabWidget;
 import android.widget.TextView;
 
 import com.jude.swipbackhelper.SwipeBackHelper;
@@ -17,6 +20,7 @@ import com.luleo.myapplications.fragments.CartFragment_;
 import com.luleo.myapplications.fragments.HomeFragment_;
 import com.luleo.myapplications.fragments.HotFragment_;
 import com.luleo.myapplications.fragments.MineFragment_;
+import com.luleo.myapplications.tools.AndroidTool;
 import com.luleo.myapplications.viewgroup.FragmentTabHost;
 import com.luleo.myapplications.viewgroup.MyTitleBar;
 
@@ -25,6 +29,7 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.SystemService;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.res.DrawableRes;
 import org.androidannotations.annotations.res.StringArrayRes;
 
 @EActivity(R.layout.activity_main)
@@ -48,18 +53,44 @@ public class MainActivity extends BaseActivity {
     @StringArrayRes
     String[] tabTag,tabTitle;
 
-    Integer[] tabIcon = new Integer[5];
+    @ViewById(android.R.id.tabs)
+    TabWidget tabWidget;
+
 
     Class[] classTab = { HomeFragment_.class, HotFragment_.class, null,CartFragment_.class,MineFragment_.class };
 
 
+    View[] views = new View[5];
+
+    ImageView[] imageViews = new ImageView[5];
+
+    TextView[] textViews = new TextView[5];
+
+    Drawable[]  drawables = new Drawable[5];
+
+    @DrawableRes
+    Drawable home_selector;
+
+    @DrawableRes(R.drawable.home_selector)
+    Drawable home_selector1;
+
+    @DrawableRes(R.drawable.home_selector)
+    Drawable home_selector2;
+
+    @DrawableRes(R.drawable.home_selector)
+    Drawable home_selector3;
+
+    @DrawableRes(R.drawable.home_selector)
+    Drawable home_selector4;
+
+
     @AfterInject
     void afterInject(){
-        tabIcon[0]=R.mipmap.tab_home;
-        tabIcon[1]=R.mipmap.tab_home;
-        tabIcon[2]=R.mipmap.tab_add;
-        tabIcon[3]=R.mipmap.tab_home;
-        tabIcon[4]=R.mipmap.tab_home;
+        drawables[0]=home_selector;
+        drawables[1]=home_selector1;
+        drawables[2]=home_selector2;
+        drawables[3]=home_selector3;
+        drawables[4]=home_selector4;
     }
 
     @AfterViews
@@ -100,46 +131,96 @@ public class MainActivity extends BaseActivity {
 
         for(int i=0;i<tabTag.length;i++){
 
+            Bundle bundle =new Bundle();
+
+            bundle.putParcelable("myTitleBar", myTitleBar);
+
             TabHost.TabSpec tabSpec=tabHost.newTabSpec(tabTag[i]);
 
             tabSpec.setIndicator(buildIndicator(i));
 
-            tabHost.addTab(tabSpec, classTab[i], null);
+            tabHost.addTab(tabSpec, classTab[i], bundle);
         }
 
 //        tabHost.getTabWidget().setShowDividers(LinearLayout.SHOW_DIVIDER_NONE);
 
+
+        tabWidget.getChildTabViewAt(2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AndroidTool.showToast(MainActivity.this, "ddd");
+            }
+        });
+
+
         tabHost.setCurrentTab(0);
 
 
+        tabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
+            @Override
+            public void onTabChanged(String tabId) {
+
+//                clearStatus(tabId);
+
+            }
+        });
+
+
     }
 
-   protected View buildIndicator(int position){
+    protected void clearStatus(String tabId){
+        for(int i=0;i<tabTag.length;i++){
+            imageViews[i].setSelected(false);
+            if(textViews[i]!=null){
+                textViews[i].setSelected(false);
+            }
+            if(tabTag[i]==tabId){
+                imageViews[i].setSelected(true);
+            }
+        }
 
-        View view =null;
+    }
 
-       if(position==2){
 
-           view=layoutInflater.inflate(R.layout.tab_indicator_add,null);
 
-           ImageView imageView = (ImageView) view.findViewById(R.id.icon_tab);
+    protected View buildIndicator(int position){
 
-           imageView.setImageResource(tabIcon[position]);
-       }else{
+        View view ;
 
-           view=layoutInflater.inflate(R.layout.tab_indicator,null);
+        if(position==2){
 
-           ImageView imageView = (ImageView) view.findViewById(R.id.icon_tab);
+            view=layoutInflater.inflate(R.layout.tab_indicator_add,null);
 
-           TextView textView = (TextView) view.findViewById(R.id.text_indicator);
+            ImageView imageView = (ImageView) view.findViewById(R.id.icon_tab);
 
-           imageView.setImageResource(tabIcon[position]);
+            imageView.setImageResource(R.mipmap.tab_add);
 
-           textView.setText(tabTitle[position]);
-       }
+            views[position] = view;
+
+            imageViews[position] = imageView;
+
+        }else{
+
+            view=layoutInflater.inflate(R.layout.tab_indicator,null);
+
+            ImageView imageView = (ImageView) view.findViewById(R.id.icon_tab);
+
+            TextView textView = (TextView) view.findViewById(R.id.text_indicator);
+
+//           imageView.setImageResource(tabIcon[position]);
+
+            imageView.setImageDrawable(drawables[position]);
+
+            textView.setText(tabTitle[position]);
+
+            views[position] = view;
+
+            imageViews[position] = imageView;
+
+            textViews[position] = textView;
+
+        }
         return  view;
     }
-
-
 
 }

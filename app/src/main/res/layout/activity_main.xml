@@ -34,21 +34,20 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:background="#D1D1D1" />
-
-
             <!-- tabhost上面一条黑色分割 @drawable/line_shop -->
             <View
                 android:id="@+id/view_2"
-                android:layout_width="match_parent"
+                android:layout_width="65dp"
                 android:layout_height="15dp"
-                android:background="@mipmap/line" />
+                android:layout_gravity="center_horizontal"
+                android:background="@mipmap/line"
+                android:clickable="false" />
             <!-- 调换framelayout和tabwidget的前后顺序可以分别实现tab的top和在底下的效果 -->
             <TabWidget
                 android:id="@android:id/tabs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:divider="@null"
-                 />
+                android:divider="@null" />
         </LinearLayout>
     </com.luleo.myapplications.viewgroup.FragmentTabHost>
 
