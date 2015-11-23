@@ -1,6 +1,7 @@
 package com.luleo.myapplications.activities;
 
 
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -14,6 +15,7 @@ import android.widget.TabHost;
 import android.widget.TabWidget;
 import android.widget.TextView;
 
+import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.jude.swipbackhelper.SwipeBackHelper;
 import com.luleo.myapplications.R;
 import com.luleo.myapplications.fragments.CartFragment_;
@@ -23,6 +25,7 @@ import com.luleo.myapplications.fragments.MineFragment_;
 import com.luleo.myapplications.tools.AndroidTool;
 import com.luleo.myapplications.viewgroup.FragmentTabHost;
 import com.luleo.myapplications.viewgroup.MyTitleBar;
+import com.luleo.myapplications.viewgroup.TickPlusDrawable;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
@@ -59,12 +62,6 @@ public class MainActivity extends BaseActivity {
 
     Class[] classTab = { HomeFragment_.class, HotFragment_.class, null,CartFragment_.class,MineFragment_.class };
 
-
-    View[] views = new View[5];
-
-    ImageView[] imageViews = new ImageView[5];
-
-    TextView[] textViews = new TextView[5];
 
     Drawable[]  drawables = new Drawable[5];
 
@@ -145,10 +142,13 @@ public class MainActivity extends BaseActivity {
 //        tabHost.getTabWidget().setShowDividers(LinearLayout.SHOW_DIVIDER_NONE);
 
 
-        tabWidget.getChildTabViewAt(2).setOnClickListener(new View.OnClickListener() {
+        View view =tabWidget.getChildTabViewAt(2);
+
+
+        view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AndroidTool.showToast(MainActivity.this, "ddd");
+
             }
         });
 
@@ -160,24 +160,10 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onTabChanged(String tabId) {
 
-//                clearStatus(tabId);
 
             }
         });
 
-
-    }
-
-    protected void clearStatus(String tabId){
-        for(int i=0;i<tabTag.length;i++){
-            imageViews[i].setSelected(false);
-            if(textViews[i]!=null){
-                textViews[i].setSelected(false);
-            }
-            if(tabTag[i]==tabId){
-                imageViews[i].setSelected(true);
-            }
-        }
 
     }
 
@@ -195,9 +181,6 @@ public class MainActivity extends BaseActivity {
 
             imageView.setImageResource(R.mipmap.tab_add);
 
-            views[position] = view;
-
-            imageViews[position] = imageView;
 
         }else{
 
@@ -212,12 +195,6 @@ public class MainActivity extends BaseActivity {
             imageView.setImageDrawable(drawables[position]);
 
             textView.setText(tabTitle[position]);
-
-            views[position] = view;
-
-            imageViews[position] = imageView;
-
-            textViews[position] = textView;
 
         }
         return  view;

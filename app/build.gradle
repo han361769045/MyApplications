@@ -91,6 +91,16 @@ dependencies {
     * */
 
 
+    /*
+     * compile 'com.github.siyamed:android-shape-imageview'
+     * https://github.com/siyamed/android-shape-imageview
+     */
+
+    /*
+     *https://github.com/futuresimple/android-floating-action-button
+     */
+    compile 'com.getbase:floatingactionbutton:1.10.1'
+
 
     /*
     *activity滑动关闭辅助类
