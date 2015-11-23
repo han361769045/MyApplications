@@ -90,17 +90,16 @@ dependencies {
     *
     * */
 
-
     /*
      * compile 'com.github.siyamed:android-shape-imageview'
      * https://github.com/siyamed/android-shape-imageview
      */
 
     /*
-     *https://github.com/futuresimple/android-floating-action-button
-     */
-    compile 'com.getbase:floatingactionbutton:1.10.1'
-
+    * 数量加减
+    *https://github.com/himanshu-soni/QuantityView
+    * compile 'me.himanshusoni.quantityview:quantity-view:1.1.1'
+    * */
 
     /*
     *activity滑动关闭辅助类

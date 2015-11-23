@@ -2,7 +2,7 @@ package com.luleo.myapplications.activities;
 
 
 import android.animation.ObjectAnimator;
-import android.graphics.Color;
+import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -11,12 +11,16 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TabWidget;
 import android.widget.TextView;
 
-import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.flyco.dialog.listener.OnOperItemClickL;
+import com.flyco.dialog.widget.ActionSheetDialog;
+import com.flyco.dialog.widget.NormalListDialog;
 import com.jude.swipbackhelper.SwipeBackHelper;
 import com.luleo.myapplications.R;
 import com.luleo.myapplications.fragments.CartFragment_;
@@ -24,10 +28,8 @@ import com.luleo.myapplications.fragments.HomeFragment_;
 import com.luleo.myapplications.fragments.HotFragment_;
 import com.luleo.myapplications.fragments.MineFragment_;
 import com.luleo.myapplications.tools.AndroidTool;
-import com.luleo.myapplications.viewgroup.CrossView;
 import com.luleo.myapplications.viewgroup.FragmentTabHost;
 import com.luleo.myapplications.viewgroup.MyTitleBar;
-import com.luleo.myapplications.viewgroup.TickPlusDrawable;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
@@ -80,9 +82,15 @@ public class MainActivity extends BaseActivity {
     @DrawableRes(R.drawable.home_selector)
     Drawable home_selector4;
 
-    boolean flag=true;
-
     ImageView imageView;
+
+    ExpandableListView elv;
+
+    String[] stringItems = {"按钮1", "按钮2", "按钮3"};
+
+    ActionSheetDialog dialog;
+
+    NormalListDialog normalListDialog ;
 
     @AfterInject
     void afterInject() {
@@ -95,9 +103,10 @@ public class MainActivity extends BaseActivity {
 
     @AfterViews
     void afterView() {
-        SwipeBackHelper.getCurrentPage(this).setSwipeBackEnable(false);
-        initTab();
 
+        SwipeBackHelper.getCurrentPage(this).setSwipeBackEnable(false);
+
+        initTab();
 
         myTitleBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,7 +114,6 @@ public class MainActivity extends BaseActivity {
                 drawerLayout.openDrawer(GravityCompat.START);
             }
         });
-
 
         nvView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
@@ -122,7 +130,6 @@ public class MainActivity extends BaseActivity {
                 VideoActivity_.intent(MainActivity.this).start();
             }
         });
-
     }
 
     protected void initTab() {
@@ -145,23 +152,66 @@ public class MainActivity extends BaseActivity {
         tabWidget.getChildTabViewAt(2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(flag){
-                    ObjectAnimator oa = ObjectAnimator.ofFloat(imageView, "rotation", 0f, 45f);
-                    oa.setDuration(300);
-                    oa.start();
-                    flag=false;
-                }else{
-                    ObjectAnimator oa = ObjectAnimator.ofFloat(imageView, "rotation", 45f, 0f);
-                    oa.setDuration(300);
-                    oa.start();
-                    flag=true;
-                }
+                ObjectAnimator oa = ObjectAnimator.ofFloat(imageView, "rotation", 0f, 135f);
+                oa.setDuration(300);
+                oa.start();
+                //ActionSheetDialogNoTitle();
+                NormalListDialogStringArr();
             }
         });
 
         tabHost.setCurrentTab(0);
     }
 
+
+    void NormalListDialogStringArr() {
+        normalListDialog = new NormalListDialog(this, stringItems);
+        normalListDialog.isTitleShow(false)//
+                .layoutAnimation(null)
+                .show(R.style.myDialogAnim);
+        normalListDialog.setOnOperItemClickL(new OnOperItemClickL() {
+            @Override
+            public void onOperItemClick(AdapterView<?> parent, View view, int position, long id) {
+                normalListDialog.dismiss();
+            }
+        });
+
+        normalListDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                ObjectAnimator oa = ObjectAnimator.ofFloat(imageView, "rotation", 135f, 0f);
+                oa.setDuration(300);
+                oa.start();
+            }
+        });
+
+    }
+
+    void ActionSheetDialogNoTitle() {
+
+        dialog= new ActionSheetDialog(this, stringItems, elv);
+
+        dialog.isTitleShow(false).show();
+
+        dialog.setOnOperItemClickL(new OnOperItemClickL() {
+            @Override
+            public void onOperItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                AndroidTool.showToast(MainActivity.this,stringItems[position]);
+
+                dialog.dismiss();
+            }
+        });
+
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                ObjectAnimator oa = ObjectAnimator.ofFloat(imageView, "rotation", 135f, 0f);
+                oa.setDuration(300);
+                oa.start();
+            }
+        });
+    }
 
     protected View buildIndicator(int position) {
 
@@ -174,7 +224,6 @@ public class MainActivity extends BaseActivity {
             imageView = (ImageView) view.findViewById(R.id.icon_tab);
 
             imageView.setImageResource(R.mipmap.tab_add);
-
 
         } else {
 
@@ -191,5 +240,4 @@ public class MainActivity extends BaseActivity {
         }
         return view;
     }
-
 }
