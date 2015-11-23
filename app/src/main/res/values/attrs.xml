@@ -28,4 +28,9 @@
         <attr name="mSearchHintTextColor" format="reference|color"/>
     </declare-styleable>
 
+
+    <declare-styleable name="CrossView">
+        <attr name="lineColor" format="color"/>
+    </declare-styleable>
+
 </resources>

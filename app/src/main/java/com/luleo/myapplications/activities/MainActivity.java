@@ -1,6 +1,7 @@
 package com.luleo.myapplications.activities;
 
 
+import android.animation.ObjectAnimator;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import com.luleo.myapplications.fragments.HomeFragment_;
 import com.luleo.myapplications.fragments.HotFragment_;
 import com.luleo.myapplications.fragments.MineFragment_;
 import com.luleo.myapplications.tools.AndroidTool;
+import com.luleo.myapplications.viewgroup.CrossView;
 import com.luleo.myapplications.viewgroup.FragmentTabHost;
 import com.luleo.myapplications.viewgroup.MyTitleBar;
 import com.luleo.myapplications.viewgroup.TickPlusDrawable;
@@ -54,16 +56,16 @@ public class MainActivity extends BaseActivity {
     NavigationView nvView;
 
     @StringArrayRes
-    String[] tabTag,tabTitle;
+    String[] tabTag, tabTitle;
 
     @ViewById(android.R.id.tabs)
     TabWidget tabWidget;
 
 
-    Class[] classTab = { HomeFragment_.class, HotFragment_.class, null,CartFragment_.class,MineFragment_.class };
+    Class[] classTab = {HomeFragment_.class, HotFragment_.class, null, CartFragment_.class, MineFragment_.class};
 
 
-    Drawable[]  drawables = new Drawable[5];
+    Drawable[] drawables = new Drawable[5];
 
     @DrawableRes
     Drawable home_selector;
@@ -80,19 +82,22 @@ public class MainActivity extends BaseActivity {
     @DrawableRes(R.drawable.home_selector)
     Drawable home_selector4;
 
+    boolean flag=true;
+
+    ImageView imageView;
 
     @AfterInject
-    void afterInject(){
-        drawables[0]=home_selector;
-        drawables[1]=home_selector1;
-        drawables[2]=home_selector2;
-        drawables[3]=home_selector3;
-        drawables[4]=home_selector4;
+    void afterInject() {
+        drawables[0] = home_selector;
+        drawables[1] = home_selector1;
+        drawables[2] = home_selector2;
+        drawables[3] = home_selector3;
+        drawables[4] = home_selector4;
     }
 
     @AfterViews
-    void afterView(){
-        SwipeBackHelper.getCurrentPage(this).setSwipeBackEnable(false) ;
+    void afterView() {
+        SwipeBackHelper.getCurrentPage(this).setSwipeBackEnable(false);
         initTab();
 
 
@@ -122,32 +127,38 @@ public class MainActivity extends BaseActivity {
 
     }
 
-    protected void initTab(){
+    protected void initTab() {
 
         tabHost.setup(this, getSupportFragmentManager(), android.R.id.tabcontent);
 
-        for(int i=0;i<tabTag.length;i++){
+        for (int i = 0; i < tabTag.length; i++) {
 
-            Bundle bundle =new Bundle();
+            Bundle bundle = new Bundle();
 
             bundle.putParcelable("myTitleBar", myTitleBar);
 
-            TabHost.TabSpec tabSpec=tabHost.newTabSpec(tabTag[i]);
+            TabHost.TabSpec tabSpec = tabHost.newTabSpec(tabTag[i]);
 
             tabSpec.setIndicator(buildIndicator(i));
 
             tabHost.addTab(tabSpec, classTab[i], bundle);
         }
 
-//        tabHost.getTabWidget().setShowDividers(LinearLayout.SHOW_DIVIDER_NONE);
-
-
-        View view =tabWidget.getChildTabViewAt(2);
-
-
-        view.setOnClickListener(new View.OnClickListener() {
+        tabWidget.getChildTabViewAt(2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(flag){
+                    ObjectAnimator oa = ObjectAnimator.ofFloat(imageView, "rotation", 0f, 45f);
+                    oa.setDuration(300);
+                    oa.start();
+                    flag=false;
+                }else{
+                    ObjectAnimator oa = ObjectAnimator.ofFloat(imageView, "rotation", 45f, 0f);
+                    oa.setDuration(300);
+                    oa.start();
+                    flag=true;
+                }
+
 
             }
         });
@@ -168,23 +179,22 @@ public class MainActivity extends BaseActivity {
     }
 
 
+    protected View buildIndicator(int position) {
 
-    protected View buildIndicator(int position){
+        View view;
 
-        View view ;
+        if (position == 2) {
 
-        if(position==2){
+            view = layoutInflater.inflate(R.layout.tab_indicator_add, null);
 
-            view=layoutInflater.inflate(R.layout.tab_indicator_add,null);
-
-            ImageView imageView = (ImageView) view.findViewById(R.id.icon_tab);
+            imageView = (ImageView) view.findViewById(R.id.icon_tab);
 
             imageView.setImageResource(R.mipmap.tab_add);
 
 
-        }else{
+        } else {
 
-            view=layoutInflater.inflate(R.layout.tab_indicator,null);
+            view = layoutInflater.inflate(R.layout.tab_indicator, null);
 
             ImageView imageView = (ImageView) view.findViewById(R.id.icon_tab);
 
@@ -197,7 +207,7 @@ public class MainActivity extends BaseActivity {
             textView.setText(tabTitle[position]);
 
         }
-        return  view;
+        return view;
     }
 
 }
