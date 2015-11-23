@@ -61,9 +61,7 @@ public class MainActivity extends BaseActivity {
     @ViewById(android.R.id.tabs)
     TabWidget tabWidget;
 
-
     Class[] classTab = {HomeFragment_.class, HotFragment_.class, null, CartFragment_.class, MineFragment_.class};
-
 
     Drawable[] drawables = new Drawable[5];
 
@@ -158,24 +156,10 @@ public class MainActivity extends BaseActivity {
                     oa.start();
                     flag=true;
                 }
-
-
             }
         });
-
 
         tabHost.setCurrentTab(0);
-
-
-        tabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
-            @Override
-            public void onTabChanged(String tabId) {
-
-
-            }
-        });
-
-
     }
 
 
@@ -199,8 +183,6 @@ public class MainActivity extends BaseActivity {
             ImageView imageView = (ImageView) view.findViewById(R.id.icon_tab);
 
             TextView textView = (TextView) view.findViewById(R.id.text_indicator);
-
-//           imageView.setImageResource(tabIcon[position]);
 
             imageView.setImageDrawable(drawables[position]);
 
