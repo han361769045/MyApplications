@@ -17,11 +17,11 @@ import com.luleo.myapplications.viewgroup.MyTitleBar;
 import com.luleo.myapplications.viewgroup.PasteEditText;
 import com.luleo.myapplications.viewgroup.ResizeLayout;
 
+import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.FocusChange;
-import org.androidannotations.annotations.SystemService;
 import org.androidannotations.annotations.TextChange;
 import org.androidannotations.annotations.ViewById;
 
@@ -66,8 +66,6 @@ public class ChatActivity extends BaseActivity implements ResizeLayout.OnResizeL
     @ViewById
     ListView list;
 
-    @SystemService
-    InputMethodManager manager;
 
     @ViewById
     RecyclerView recyclerView;
@@ -75,6 +73,13 @@ public class ChatActivity extends BaseActivity implements ResizeLayout.OnResizeL
     int keyboardHeight = 0;
 
     List<String> reslist;
+
+
+    @AfterInject
+    void afterInject(){
+
+    }
+
 
     @AfterViews
     void afterView(){
@@ -193,14 +198,14 @@ public class ChatActivity extends BaseActivity implements ResizeLayout.OnResizeL
          ivEmoticonsNormal.setVisibility(View.GONE);
          ivEmoticonsChecked.setVisibility(View.VISIBLE);
          reCountListHeight();
-         if (getCurrentFocus() != null && manager.isActive()){
-            manager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+         if (getCurrentFocus() != null && inputMethodManager.isActive()){
+             inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
 
     }
 
     void showKeyboard(){
-        manager.showSoftInput(getCurrentFocus(), InputMethodManager.HIDE_NOT_ALWAYS);
+        inputMethodManager.showSoftInput(getCurrentFocus(), InputMethodManager.HIDE_NOT_ALWAYS);
         ivEmoticonsNormal.setVisibility(View.VISIBLE);
         ivEmoticonsChecked.setVisibility(View.GONE);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);

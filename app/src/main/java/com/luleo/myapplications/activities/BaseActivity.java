@@ -1,12 +1,24 @@
 package com.luleo.myapplications.activities;
 
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.inputmethod.InputMethodManager;
 
 import com.jude.swipbackhelper.SwipeBackHelper;
 import com.jude.swipbackhelper.SwipeListener;
+import com.luleo.myapplications.prefs.MyPrefs_;
+import com.luleo.myapplications.rest.MyErrorHandler;
+import com.luleo.myapplications.rest.MyRestClient;
 
+import org.androidannotations.annotations.AfterInject;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.SystemService;
+import org.androidannotations.annotations.rest.RestService;
+import org.androidannotations.annotations.sharedpreferences.Pref;
+import org.springframework.util.StringUtils;
 
 /**
  * Created by leo on 2015/10/18.
@@ -14,6 +26,39 @@ import org.androidannotations.annotations.EActivity;
 
 @EActivity
 public abstract class BaseActivity extends AppCompatActivity{
+
+
+    @SystemService
+    InputMethodManager inputMethodManager;
+
+    @SystemService
+    ConnectivityManager connectivityManager;
+
+    @Pref
+    MyPrefs_ myPrefs;
+
+    @RestService
+    MyRestClient myRestClient;
+
+    @Bean
+    MyErrorHandler myErrorHandler;
+
+
+    /**
+     * 获取当前网络类型
+     * @return 0：没有网络   1：WIFI网络   2：WAP网络    3：NET网络
+     */
+
+    public static final int NETTYPE_WIFI = 0x01;
+    public static final int NETTYPE_CMWAP = 0x02;
+    public static final int NETTYPE_CMNET = 0x03;
+
+
+
+    @AfterInject
+    void afterBaseInject(){
+        myRestClient.setRestErrorHandler(myErrorHandler);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +88,44 @@ public abstract class BaseActivity extends AppCompatActivity{
                 });
     }
 
+    /**
+     * 检测网络是否可用
+     * @return
+     */
+    public boolean isNetworkConnected() {
+        NetworkInfo ni = connectivityManager.getActiveNetworkInfo();
+        return ni != null && ni.isConnectedOrConnecting();
+    }
+
+    /**
+     * 获取当前网络类型
+     * @return 0：没有网络   1：WIFI网络   2：WAP网络    3：NET网络
+     */
+    public int getNetworkType() {
+        int netType = 0;
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if (networkInfo == null) {
+            return netType;
+        }
+        int nType = networkInfo.getType();
+        if (nType == ConnectivityManager.TYPE_MOBILE) {
+            String extraInfo = networkInfo.getExtraInfo();
+            if(!StringUtils.isEmpty(extraInfo)){
+                if (extraInfo.toLowerCase().equals("cmnet")) {
+                    netType = NETTYPE_CMNET;
+                } else {
+                    netType = NETTYPE_CMWAP;
+                }
+            }
+        } else if (nType == ConnectivityManager.TYPE_WIFI) {
+            netType = NETTYPE_WIFI;
+        }
+        return netType;
+    }
+
+
+
+
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -57,6 +140,9 @@ public abstract class BaseActivity extends AppCompatActivity{
 
     @Override
     public void finish() {
+        if (inputMethodManager.isActive()){
+            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
         super.finish();
     }
 }

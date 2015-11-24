@@ -20,6 +20,5 @@ public class BaseModel {
 
     public String Error;
 
-    public String errorCode;
 
 }

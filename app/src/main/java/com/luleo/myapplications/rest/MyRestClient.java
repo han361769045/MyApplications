@@ -66,6 +66,7 @@ public interface MyRestClient extends RestClientRootUrl, RestClientSupport, Rest
     String putTest(BaseModel bm);
 
 
+
     @Get("")
     ResponseEntity getTest();
 
