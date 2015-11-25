@@ -1,5 +1,6 @@
 package com.luleo.myapplications.fragments;
 
+
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
@@ -13,6 +14,8 @@ import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.res.StringRes;
 
+import cn.bingoogolapple.badgeview.BGABadgeTextView;
+
 /**
  * Created by leo on 2015/10/18.
  */
@@ -20,6 +23,9 @@ import org.androidannotations.annotations.res.StringRes;
 @EFragment(R.layout.fragment_home)
 public class HomeFragment extends  BaseFragment implements BaseSliderView.OnSliderClickListener {
 
+
+    @ViewById
+    BGABadgeTextView btv_home_test;
 
 
     @ViewById
@@ -35,6 +41,7 @@ public class HomeFragment extends  BaseFragment implements BaseSliderView.OnSlid
     @AfterViews
     void afterView(){
 
+        myTitleBar.setTitle(home);
 
         TextSliderView textSliderView1 = new TextSliderView(getActivity());
         textSliderView1.description("Game of Thrones1").image("http://images.boomsbeat.com/data/images/full/19640/game-of-thrones-season-4-jpg.jpg");
@@ -52,14 +59,13 @@ public class HomeFragment extends  BaseFragment implements BaseSliderView.OnSlid
         sliderLayout.addSlider(textSliderView2);
         sliderLayout.addSlider(textSliderView3);
 
+        btv_home_test.showTextBadge("1");
+
     }
-
-
-
 
     @Override
     public void onHiddenChanged(boolean hidden) {
-
+        AndroidTool.showToast(this,hidden+"");
         if (hidden){
             sliderLayout.stopAutoCycle();
         }else{

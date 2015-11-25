@@ -31,7 +31,7 @@ android {
 
     defaultConfig {
         applicationId "com.luleo.myapplications"
-        minSdkVersion 16
+        minSdkVersion 17
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -101,6 +101,14 @@ dependencies {
     *https://github.com/himanshu-soni/QuantityView
     * compile 'me.himanshusoni.quantityview:quantity-view:1.1.1'
     * */
+
+
+    /*
+    * 徽章
+    * https://github.com/bingoogolapple/BGABadgeView-Android
+    *
+    * */
+    compile 'cn.bingoogolapple:bga-badgeview:1.0.2'
 
     /*
     *activity滑动关闭辅助类

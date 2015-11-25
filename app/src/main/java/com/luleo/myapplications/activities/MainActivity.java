@@ -39,6 +39,8 @@ import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.res.DrawableRes;
 import org.androidannotations.annotations.res.StringArrayRes;
 
+import cn.bingoogolapple.badgeview.BGABadgeImageView;
+
 @EActivity(R.layout.activity_main)
 public class MainActivity extends BaseActivity {
 
@@ -155,8 +157,8 @@ public class MainActivity extends BaseActivity {
                 ObjectAnimator oa = ObjectAnimator.ofFloat(imageView, "rotation", 0f, 135f);
                 oa.setDuration(300);
                 oa.start();
-                //ActionSheetDialogNoTitle();
-                NormalListDialogStringArr();
+                ActionSheetDialogNoTitle();
+                //NormalListDialogStringArr();
             }
         });
 
@@ -229,11 +231,15 @@ public class MainActivity extends BaseActivity {
 
             view = layoutInflater.inflate(R.layout.tab_indicator, null);
 
+//            BGABadgeImageView imageView = (BGABadgeImageView) view.findViewById(R.id.icon_tab);
+
             ImageView imageView = (ImageView) view.findViewById(R.id.icon_tab);
 
             TextView textView = (TextView) view.findViewById(R.id.text_indicator);
 
             imageView.setImageDrawable(drawables[position]);
+
+//            imageView.showTextBadge("1");
 
             textView.setText(tabTitle[position]);
 

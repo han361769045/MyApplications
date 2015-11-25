@@ -11,6 +11,9 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
+    <!-- 如果要使用拖拽删除徽章功能-->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
     <application
         android:name=".MyApplication_"
         android:allowBackup="true"

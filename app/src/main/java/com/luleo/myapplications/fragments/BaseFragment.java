@@ -1,10 +1,12 @@
 package com.luleo.myapplications.fragments;
 
 import android.support.v4.app.Fragment;
+import android.util.Log;
 
 import com.luleo.myapplications.prefs.MyPrefs_;
 import com.luleo.myapplications.rest.MyErrorHandler;
 import com.luleo.myapplications.rest.MyRestClient;
+import com.luleo.myapplications.tools.AndroidTool;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Bean;
@@ -35,21 +37,34 @@ public abstract class BaseFragment extends Fragment {
     }
 
 
-
     @Override
     public void onPause() {
         super.onPause();
         if (isVisible()){
             onHiddenChanged(isVisible());
         }
-
     }
 
     @Override
     public void onResume() {
         super.onResume();
         if (isVisible()){
-            onHiddenChanged(!isVisible());
+            onHiddenChanged(isHidden());
         }
     }
+
+    //不好使
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            //相当于Fragment的onResume
+            Log.e("setUserVisibleHint","相当于Fragment的onPause");
+        } else {
+            //相当于Fragment的onPause
+            Log.e("setUserVisibleHint","相当于Fragment的onPause");
+        }
+    }
+
+
 }
