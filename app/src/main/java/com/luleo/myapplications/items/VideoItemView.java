@@ -35,9 +35,6 @@ public class VideoItemView extends ItemView<VideoInfo> {
         this.context=context;
     }
 
-
-
-
     @Override
     protected void init(Object... objects) {
 
@@ -47,7 +44,7 @@ public class VideoItemView extends ItemView<VideoInfo> {
 
     @Click
     void delete(){
-        Log.i("delete","ddddddddddddddd");
+        baseRecyclerViewAdapter.remove(viewHolder.getAdapterPosition());
     }
 
     @Override

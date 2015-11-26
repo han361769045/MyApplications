@@ -71,7 +71,7 @@ public abstract class BaseRecyclerViewAdapter<T> extends UltimateViewAdapter<Bas
 
             ItemView<T> itemView = (ItemView) viewHolder.itemView;
 
-            itemView.init(items.get(customHeaderView != null ? position - 1 : position), this);
+            itemView.init(items.get(customHeaderView != null ? position - 1 : position), this,viewHolder);
 
             mItemManger.updateConvertView(viewHolder, position);
 

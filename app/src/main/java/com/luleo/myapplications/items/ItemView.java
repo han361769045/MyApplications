@@ -1,8 +1,10 @@
 package com.luleo.myapplications.items;
 
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.widget.FrameLayout;
 
+import com.luleo.myapplications.adapters.BaseRecyclerViewAdapter;
 import com.marshalchen.ultimaterecyclerview.itemTouchHelper.ItemTouchHelperViewHolder;
 
 
@@ -13,6 +15,9 @@ public abstract class ItemView<T> extends FrameLayout implements ItemTouchHelper
 
     protected T _data;
 
+    protected BaseRecyclerViewAdapter<T> baseRecyclerViewAdapter;
+
+    protected  RecyclerView.ViewHolder viewHolder;
 
     public ItemView(Context context) {
         super(context);
@@ -20,7 +25,13 @@ public abstract class ItemView<T> extends FrameLayout implements ItemTouchHelper
 
     public void init(T t, Object... objects) {
         this._data = t;
-//        this.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        init(objects);
+    }
+
+    public void init(T t,BaseRecyclerViewAdapter<T> baseRecyclerViewAdapter,RecyclerView.ViewHolder viewHolder,Object... objects) {
+        this._data = t;
+        this.baseRecyclerViewAdapter=baseRecyclerViewAdapter;
+        this.viewHolder=viewHolder;
         init(objects);
     }
 
