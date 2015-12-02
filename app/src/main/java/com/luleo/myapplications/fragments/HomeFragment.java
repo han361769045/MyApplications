@@ -65,7 +65,6 @@ public class HomeFragment extends  BaseFragment implements BaseSliderView.OnSlid
 
     @Override
     public void onHiddenChanged(boolean hidden) {
-        AndroidTool.showToast(this,hidden+"");
         if (hidden){
             sliderLayout.stopAutoCycle();
         }else{

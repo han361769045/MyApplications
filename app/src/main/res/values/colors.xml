@@ -122,4 +122,7 @@
     <color name="blue_semi_transparent">#805677fc</color>
     <color name="blue_semi_transparent_pressed">#80738ffe</color>
 
+    <color name="main_color">#FF6666</color>
+    <color name="b_color">#CC0000</color>
+
 </resources>
