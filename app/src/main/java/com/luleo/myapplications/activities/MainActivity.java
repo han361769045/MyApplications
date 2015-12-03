@@ -39,8 +39,6 @@ import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.res.DrawableRes;
 import org.androidannotations.annotations.res.StringArrayRes;
 
-import cn.bingoogolapple.badgeview.BGABadgeImageView;
-
 @EActivity(R.layout.activity_main)
 public class MainActivity extends BaseActivity {
 
@@ -105,6 +103,7 @@ public class MainActivity extends BaseActivity {
 
     @AfterViews
     void afterView() {
+
 
         SwipeBackHelper.getCurrentPage(this).setSwipeBackEnable(false);
 

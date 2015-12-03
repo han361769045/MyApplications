@@ -26,6 +26,7 @@
             android:name=".activities.MainActivity_"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden"
+
             android:theme="@style/MainTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
