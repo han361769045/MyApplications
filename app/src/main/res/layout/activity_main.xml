@@ -22,12 +22,12 @@
                 android:id="@+id/my_title_bar"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:background="?attr/colorPrimary"
+                android:background="@color/main_color"
                 android:minHeight="50dp"
-                app:mNavButtonIcon="@mipmap/ic_launcher"
-                app:mRightButtonIcon="@mipmap/ic_launcher"
+                app:mNavButtonIcon="@mipmap/default_header"
+                app:mRightText="大连"
+                app:mRightTextDrawable="@mipmap/home_city"
                 app:mTitle="@string/home"
-                app:mLogoIcon="@mipmap/ic_launcher"
                />
 
             <FrameLayout
@@ -58,7 +58,8 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@android:color/white"
+        android:background="@color/main_color"
         app:headerLayout="@layout/nav_header"
+        app:itemTextColor="@color/white"
         app:menu="@menu/drawer_view" />
 </android.support.v4.widget.DrawerLayout>

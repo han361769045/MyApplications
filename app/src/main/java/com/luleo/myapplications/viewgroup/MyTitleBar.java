@@ -70,6 +70,8 @@ public class MyTitleBar extends RelativeLayout implements Parcelable {
 
     private Drawable searchDrawable;
 
+    private int mRightTextMarginRight;
+
     private boolean mLogoShape;
 
     private int mBorderColor = Color.BLACK;
@@ -77,7 +79,6 @@ public class MyTitleBar extends RelativeLayout implements Parcelable {
     private int mBorderWidth = 0;
 
     private OnNavigationClickListener onNavigationClickListener;
-
 
     private OnRightClickListener onRightClickListener;
 
@@ -131,8 +132,10 @@ public class MyTitleBar extends RelativeLayout implements Parcelable {
 
         final TintTypedArray a = TintTypedArray.obtainStyledAttributes(getContext(), attrs, R.styleable.MyTitleBar, defStyleAttr, 0);
 
-        final Drawable rightButtonView = a.getDrawable(R.styleable.MyTitleBar_mRightButtonIcon);
+        mRightTextMarginRight=a.getDimensionPixelSize(R.styleable.MyTitleBar_mRightTextMarginRight, 20);
 
+
+        final Drawable rightButtonView = a.getDrawable(R.styleable.MyTitleBar_mRightButtonIcon);
         if (rightButtonView != null) {
             setRightButtonIcon(rightButtonView);
         }
@@ -142,6 +145,16 @@ public class MyTitleBar extends RelativeLayout implements Parcelable {
         if (!TextUtils.isEmpty(mRightText)) {
             setRightText(mRightText);
         }
+
+        final Drawable rightTextDrawable = a.getDrawable(R.styleable.MyTitleBar_mRightTextDrawable);
+
+        if(rightTextDrawable!=null){
+
+            rightTextDrawable.setBounds(0,0,rightTextDrawable.getMinimumWidth(),rightTextDrawable.getMinimumHeight());
+
+            mRightTextView.setCompoundDrawables(null,null,rightTextDrawable,null);
+        }
+
 
         if (a.hasValue(R.styleable.MyTitleBar_mRightTextColor)) {
             setRightTextColor(a.getColor(R.styleable.MyTitleBar_mRightTextColor, 0xffffffff));
@@ -227,8 +240,9 @@ public class MyTitleBar extends RelativeLayout implements Parcelable {
      * @param listener
      */
     public void setNavigationOnClickListener(OnClickListener listener) {
-        ensureNavButtonView();
-        mNavButtonView.setOnClickListener(listener);
+//        ensureNavButtonView();
+        if (mNavButtonView!=null)
+            mNavButtonView.setOnClickListener(listener);
     }
 
     /**
@@ -237,14 +251,41 @@ public class MyTitleBar extends RelativeLayout implements Parcelable {
      * @param listener
      */
     public void setRightButtonOnClickListener(OnClickListener listener) {
-        ensureRightButtonView();
-        mRightButtonView.setOnClickListener(listener);
+        //ensureRightButtonView();
+        if(mRightButtonView!=null)
+            mRightButtonView.setOnClickListener(listener);
+
     }
 
+    /**
+     * set Search ClickListener
+     * @param listener
+     */
     public void setSearchViewOnClickListener(OnClickListener listener) {
-        if (mSearchView != null) {
-            mRightButtonView.setOnClickListener(listener);
-        }
+        if (mSearchView != null)
+            mSearchView.setOnClickListener(listener);
+
+    }
+
+    /**
+     * set Right ClickListener
+     * @param listener
+     */
+    public void setRightTextOnClickListener(OnClickListener listener){
+        if(mRightTextView!=null)
+            mRightTextView.setOnClickListener(listener);
+
+    }
+
+    public void setLeftTextOnClickListener(OnClickListener listener){
+        if(mLeftTextView!=null)
+            mLeftTextView.setOnClickListener(listener);
+    }
+
+    public void setLogoOnClickListener(OnClickListener listener){
+        if(logoView!=null)
+            logoView.setOnClickListener(listener);
+
     }
 
     public void setSearchDrawableRight(Drawable icon) {
@@ -481,7 +522,7 @@ public class MyTitleBar extends RelativeLayout implements Parcelable {
                 LayoutParams layoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
                 layoutParams.alignWithParent = true;
                 if (mRightButtonView == null) {
-                    layoutParams.setMargins(5, 0, 20, 0);
+                    layoutParams.setMargins(5, 0, mRightTextMarginRight, 0);
                     layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
                 } else {
                     layoutParams.addRule(RelativeLayout.LEFT_OF, R.id.m_right_button);

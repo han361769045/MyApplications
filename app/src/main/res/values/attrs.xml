@@ -19,6 +19,8 @@
         <attr name="mRightTextSize" format="dimension|reference"/>
         <attr name="mRightTextColor" format="reference|color"/>
         <attr name="mRightButtonIcon" format="reference"/>
+        <attr name="mRightTextMarginRight" format="dimension|reference"/>
+        <attr name="mRightTextDrawable" format="reference"/>
 
         <attr name="mNavButtonIcon" format="reference"/>
 

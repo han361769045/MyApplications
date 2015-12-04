@@ -3,11 +3,13 @@ package com.luleo.myapplications.activities;
 
 import android.animation.ObjectAnimator;
 import android.content.DialogInterface;
+import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,6 +38,7 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.SystemService;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.res.ColorStateListRes;
 import org.androidannotations.annotations.res.DrawableRes;
 import org.androidannotations.annotations.res.StringArrayRes;
 
@@ -92,6 +95,10 @@ public class MainActivity extends BaseActivity {
 
     NormalListDialog normalListDialog ;
 
+
+    @ColorStateListRes
+    ColorStateList white;
+
     @AfterInject
     void afterInject() {
         drawables[0] = home_selector;
@@ -115,22 +122,37 @@ public class MainActivity extends BaseActivity {
                 drawerLayout.openDrawer(GravityCompat.START);
             }
         });
+        myTitleBar.setRightTextOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AndroidTool.showToast(MainActivity.this,"ssssssssss");
+            }
+        });
 
         nvView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         drawerLayout.closeDrawer(nvView);
+
+                        switch (menuItem.getItemId()){
+
+                            case R.id.nav_first_fragment:
+
+                                AndroidTool.showToast(MainActivity.this,"nav_first_fragment");
+
+                                break;
+
+                            case R.id.nav_second_fragment:
+
+                                AndroidTool.showToast(MainActivity.this,"nav_second_fragment");
+                                break;
+                        }
+
                         return true;
                     }
                 });
 
-        myTitleBar.setRightButtonOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                VideoActivity_.intent(MainActivity.this).start();
-            }
-        });
     }
 
     protected void initTab() {
