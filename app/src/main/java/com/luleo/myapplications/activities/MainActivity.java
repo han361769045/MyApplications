@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ExpandableListView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TabWidget;
@@ -35,6 +36,7 @@ import com.luleo.myapplications.viewgroup.MyTitleBar;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.SystemService;
 import org.androidannotations.annotations.ViewById;
@@ -84,6 +86,9 @@ public class MainActivity extends BaseActivity {
 
     @DrawableRes(R.drawable.home_selector)
     Drawable home_selector4;
+
+    @ViewById
+    ImageButton ibHome;
 
     ImageView imageView;
 
@@ -153,6 +158,16 @@ public class MainActivity extends BaseActivity {
                     }
                 });
 
+
+
+    }
+
+    @Click
+    void ibHome(){
+        ObjectAnimator oa = ObjectAnimator.ofFloat(ibHome, "rotation", 0f, 135f);
+        oa.setDuration(300);
+        oa.start();
+        ActionSheetDialogNoTitle();
     }
 
     protected void initTab() {
@@ -229,7 +244,7 @@ public class MainActivity extends BaseActivity {
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
-                ObjectAnimator oa = ObjectAnimator.ofFloat(imageView, "rotation", 135f, 0f);
+                ObjectAnimator oa = ObjectAnimator.ofFloat(ibHome, "rotation", 135f, 0f);
                 oa.setDuration(300);
                 oa.start();
             }
@@ -246,7 +261,7 @@ public class MainActivity extends BaseActivity {
 
             imageView = (ImageView) view.findViewById(R.id.icon_tab);
 
-            imageView.setImageResource(R.mipmap.tab_add);
+//            imageView.setImageResource(R.mipmap.tab_add);
 
         } else {
 

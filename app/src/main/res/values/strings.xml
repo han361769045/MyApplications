@@ -7,10 +7,10 @@
     <string name="no_net">无网络连接</string>
 
     <string name="home">首页</string>
-    <string name="hot">热卖</string>
-    <string name="add">热卖</string>
-    <string name="cart">购物车</string>
-    <string name="mine">我的</string>
+    <string name="hot">魔法院</string>
+    <string name="add">add</string>
+    <string name="cart">魔法师</string>
+    <string name="mine">活动</string>
 
 
 

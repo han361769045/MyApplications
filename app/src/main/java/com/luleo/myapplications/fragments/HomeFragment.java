@@ -25,10 +25,6 @@ public class HomeFragment extends  BaseFragment implements BaseSliderView.OnSlid
 
 
     @ViewById
-    BGABadgeTextView btv_home_test;
-
-
-    @ViewById
     SliderLayout sliderLayout;
 
     @FragmentArg
@@ -59,7 +55,6 @@ public class HomeFragment extends  BaseFragment implements BaseSliderView.OnSlid
         sliderLayout.addSlider(textSliderView2);
         sliderLayout.addSlider(textSliderView3);
 
-        btv_home_test.showTextBadge("1");
 
     }
 

@@ -12,45 +12,67 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#D1D1D1"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-            <com.luleo.myapplications.viewgroup.MyTitleBar
-                android:id="@+id/my_title_bar"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@color/main_color"
-                android:minHeight="50dp"
-                app:mNavButtonIcon="@mipmap/default_header"
-                app:mRightText="大连"
-                app:mRightTextDrawable="@mipmap/home_city"
-                app:mTitle="@string/home"
-               />
 
-            <FrameLayout
-                android:id="@android:id/tabcontent"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:background="#D1D1D1" />
-            <!-- tabhost上面一条黑色分割 @drawable/line_shop -->
+                android:layout_height="match_parent"
+                android:background="#D1D1D1"
+                android:orientation="vertical">
+
+                <com.luleo.myapplications.viewgroup.MyTitleBar
+                    android:id="@+id/my_title_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@color/main_color"
+                    android:minHeight="50dp"
+                    app:mNavButtonIcon="@mipmap/default_header"
+                    app:mRightText="大连"
+                    app:mRightTextDrawable="@mipmap/home_city"
+                    app:mTitle="@string/home" />
+
+                <FrameLayout
+                    android:id="@android:id/tabcontent"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:background="#D1D1D1" />
+                <!-- tabhost上面一条黑色分割 @drawable/line_shop -->
+                <View
+                    android:id="@+id/view_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:clickable="false" />
+                <!-- 调换framelayout和tabwidget的前后顺序可以分别实现tab的top和在底下的效果 -->
+                <TabWidget
+                    android:id="@android:id/tabs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:divider="@null" />
+            </LinearLayout>
+
             <View
-                android:id="@+id/view_2"
+                android:id="@+id/view_3"
                 android:layout_width="65dp"
-                android:layout_height="15dp"
-                android:layout_gravity="center_horizontal"
+                android:layout_height="18dp"
+                android:layout_alignTop="@+id/ibHome"
+                android:layout_centerHorizontal="true"
                 android:background="@mipmap/line"
                 android:clickable="false" />
-            <!-- 调换framelayout和tabwidget的前后顺序可以分别实现tab的top和在底下的效果 -->
-            <TabWidget
-                android:id="@android:id/tabs"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:divider="@null" />
-        </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/ibHome"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:background="@null"
+                android:src="@mipmap/tab_add" />
+        </RelativeLayout>
     </com.luleo.myapplications.viewgroup.FragmentTabHost>
 
     <android.support.design.widget.NavigationView
