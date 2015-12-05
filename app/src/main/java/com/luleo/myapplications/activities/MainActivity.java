@@ -90,15 +90,13 @@ public class MainActivity extends BaseActivity {
     @ViewById
     ImageButton ibHome;
 
-    ImageView imageView;
-
     ExpandableListView elv;
 
     String[] stringItems = {"按钮1", "按钮2", "按钮3"};
 
     ActionSheetDialog dialog;
 
-    NormalListDialog normalListDialog ;
+    NormalListDialog normalListDialog;
 
 
     @ColorStateListRes
@@ -116,10 +114,16 @@ public class MainActivity extends BaseActivity {
     @AfterViews
     void afterView() {
 
-
         SwipeBackHelper.getCurrentPage(this).setSwipeBackEnable(false);
 
         initTab();
+
+        setListener();
+
+    }
+
+
+    void setListener() {
 
         myTitleBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,7 +134,7 @@ public class MainActivity extends BaseActivity {
         myTitleBar.setRightTextOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AndroidTool.showToast(MainActivity.this,"ssssssssss");
+               VideoActivity_.intent(MainActivity.this).start();
             }
         });
 
@@ -140,30 +144,28 @@ public class MainActivity extends BaseActivity {
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         drawerLayout.closeDrawer(nvView);
 
-                        switch (menuItem.getItemId()){
+                        switch (menuItem.getItemId()) {
 
                             case R.id.nav_first_fragment:
 
-                                AndroidTool.showToast(MainActivity.this,"nav_first_fragment");
+                                AndroidTool.showToast(MainActivity.this, "nav_first_fragment");
 
                                 break;
 
                             case R.id.nav_second_fragment:
 
-                                AndroidTool.showToast(MainActivity.this,"nav_second_fragment");
+                                AndroidTool.showToast(MainActivity.this, "nav_second_fragment");
                                 break;
                         }
 
                         return true;
                     }
                 });
-
-
-
     }
 
+
     @Click
-    void ibHome(){
+    void ibHome() {
         ObjectAnimator oa = ObjectAnimator.ofFloat(ibHome, "rotation", 0f, 135f);
         oa.setDuration(300);
         oa.start();
@@ -187,14 +189,11 @@ public class MainActivity extends BaseActivity {
             tabHost.addTab(tabSpec, classTab[i], bundle);
         }
 
+        //重写点击方法，防止空指针异常
         tabWidget.getChildTabViewAt(2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ObjectAnimator oa = ObjectAnimator.ofFloat(imageView, "rotation", 0f, 135f);
-                oa.setDuration(300);
-                oa.start();
-                ActionSheetDialogNoTitle();
-                //NormalListDialogStringArr();
+
             }
         });
 
@@ -217,7 +216,7 @@ public class MainActivity extends BaseActivity {
         normalListDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
-                ObjectAnimator oa = ObjectAnimator.ofFloat(imageView, "rotation", 135f, 0f);
+                ObjectAnimator oa = ObjectAnimator.ofFloat(ibHome, "rotation", 135f, 0f);
                 oa.setDuration(300);
                 oa.start();
             }
@@ -227,7 +226,7 @@ public class MainActivity extends BaseActivity {
 
     void ActionSheetDialogNoTitle() {
 
-        dialog= new ActionSheetDialog(this, stringItems, elv);
+        dialog = new ActionSheetDialog(this, stringItems, elv);
 
         dialog.isTitleShow(false).show();
 
@@ -235,7 +234,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onOperItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                AndroidTool.showToast(MainActivity.this,stringItems[position]);
+                AndroidTool.showToast(MainActivity.this, stringItems[position]);
 
                 dialog.dismiss();
             }
@@ -253,32 +252,17 @@ public class MainActivity extends BaseActivity {
 
     protected View buildIndicator(int position) {
 
-        View view;
+        View view = layoutInflater.inflate(R.layout.tab_indicator, null);
 
-        if (position == 2) {
+        ImageView imageView = (ImageView) view.findViewById(R.id.icon_tab);
 
-            view = layoutInflater.inflate(R.layout.tab_indicator_add, null);
-
-            imageView = (ImageView) view.findViewById(R.id.icon_tab);
-
-//            imageView.setImageResource(R.mipmap.tab_add);
-
-        } else {
-
-            view = layoutInflater.inflate(R.layout.tab_indicator, null);
-
-//            BGABadgeImageView imageView = (BGABadgeImageView) view.findViewById(R.id.icon_tab);
-
-            ImageView imageView = (ImageView) view.findViewById(R.id.icon_tab);
+        if (position != 2) {
 
             TextView textView = (TextView) view.findViewById(R.id.text_indicator);
 
             imageView.setImageDrawable(drawables[position]);
 
-//            imageView.showTextBadge("1");
-
             textView.setText(tabTitle[position]);
-
         }
         return view;
     }

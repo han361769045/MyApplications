@@ -84,12 +84,29 @@ dependencies {
     *RecyclerView 的ItemDecoration 布局
     *https://github.com/magiepooh/RecyclerItemDecoration
     * */
-    compile 'com.github.magiepooh:recycler-itemdecoration:1.1.0@aar'
+    compile 'com.github.magiepooh:recycler-itemdecoration:1.1.1@aar'
 
     /*
     *  compile 'com.belerweb:pinyin4j:2.5.0'
     *
     * */
+
+
+
+    /*
+    * biu，biu，一个有趣的EditText
+    * https://github.com/xujinyang/BiuEditText
+    * */
+    compile 'com.xujinyang.BiuEditText:library:1.2.0'
+
+
+
+    /*
+    * 一个iOS风格的边缘滚动效果，支持几乎所有滚动视图。
+    * http://www.jcodecraeer.com/a/opensource/2015/1205/3753.html
+    * https://github.com/EverythingMe/overscroll-decor
+    * */
+    compile 'me.everything:overscroll-decor-android:1.0.0'
 
     /*
      * compile 'com.github.siyamed:android-shape-imageview'
@@ -107,7 +124,7 @@ dependencies {
     * https://github.com/bingoogolapple/BGABadgeView-Android
     *
     * */
-    compile 'cn.bingoogolapple:bga-badgeview:1.0.2'
+    compile 'cn.bingoogolapple:bga-badgeview:1.0.4'
 
     /*
     *activity滑动关闭辅助类
@@ -136,7 +153,7 @@ dependencies {
 
     /*
     *美化 toast
-    *http://www.jcodecraeer.com/a/opensource/2015/0426/2789.html
+    * http://www.jcodecraeer.com/a/opensource/2015/0426/2789.html
     * https://github.com/code-mc/loadtoast
     * */
     compile 'net.steamcrafted:load-toast:1.0.9'
@@ -152,7 +169,7 @@ dependencies {
     *仿iOS的PickerView控件，有时间选择和选项选择并支持一二三级联动效果
     * https://github.com/saiwu-bigkoo/Android-PickerView
     * */
-    compile 'com.bigkoo:pickerview:1.0.3'
+    compile 'com.bigkoo:pickerview:2.0.3'
 
     /*
     *自定义 dialogue
@@ -195,6 +212,11 @@ dependencies {
     * */
     compile "org.androidannotations:androidannotations-api:$AAVersion"
     apt "org.androidannotations:androidannotations:$AAVersion"
+
+    /*
+    *https://github.com/glomadrian/loading-balls
+    * loading
+    * */
 
 
 //    debugCompile 'me.drakeet.library:crashwoodpecker:0.9.7'

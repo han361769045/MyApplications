@@ -26,7 +26,6 @@ public class CartFragment extends BaseFragment {
     void afterView(){
 
 
-
     }
 
     @Override

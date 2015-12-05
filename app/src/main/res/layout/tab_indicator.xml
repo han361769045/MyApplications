@@ -6,7 +6,7 @@
     android:background="#ffffffff"
     android:gravity="center"
     android:orientation="vertical"
-    android:paddingTop="5dp">
+    android:paddingTop="2dp">
 
     <ImageView
         android:id="@+id/icon_tab"

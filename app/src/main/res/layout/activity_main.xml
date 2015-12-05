@@ -45,33 +45,32 @@
                 <View
                     android:id="@+id/view_2"
                     android:layout_width="match_parent"
-                    android:layout_height="0.1dp"
+                    android:layout_height="1dp"
                     android:clickable="false" />
                 <!-- 调换framelayout和tabwidget的前后顺序可以分别实现tab的top和在底下的效果 -->
                 <TabWidget
                     android:id="@android:id/tabs"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:divider="@null" />
             </LinearLayout>
 
-            <View
-                android:id="@+id/view_3"
-                android:layout_width="65dp"
-                android:layout_height="18dp"
-                android:layout_alignTop="@+id/ibHome"
-                android:layout_centerHorizontal="true"
-                android:background="@mipmap/line"
-                android:clickable="false" />
 
-            <ImageButton
-                android:id="@+id/ibHome"
+            <LinearLayout
                 android:layout_width="65dp"
-                android:layout_height="65dp"
+                android:layout_height="66dp"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:background="@null"
-                android:src="@mipmap/tab_add" />
+                android:background="@mipmap/bottom_center">
+
+                <ImageButton
+                    android:id="@+id/ibHome"
+                    android:layout_width="65dp"
+                    android:layout_height="66dp"
+                    android:background="@null"
+                    android:src="@mipmap/tab_add" />
+            </LinearLayout>
+
         </RelativeLayout>
     </com.luleo.myapplications.viewgroup.FragmentTabHost>
 
