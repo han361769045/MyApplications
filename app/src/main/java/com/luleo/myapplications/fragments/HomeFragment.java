@@ -40,15 +40,15 @@ public class HomeFragment extends  BaseFragment implements BaseSliderView.OnSlid
         myTitleBar.setTitle(home);
 
         TextSliderView textSliderView1 = new TextSliderView(getActivity());
-        textSliderView1.description("Game of Thrones1").image("http://images.boomsbeat.com/data/images/full/19640/game-of-thrones-season-4-jpg.jpg");
+        textSliderView1.description("Game of Thrones1").image("http://pic25.nipic.com/20121209/9252150_194258033000_2.jpg");
         textSliderView1.setOnSliderClickListener(this);
 
         TextSliderView textSliderView2 = new TextSliderView(getActivity());
-        textSliderView2.description("Game of Thrones2").image("http://images.boomsbeat.com/data/images/full/19640/game-of-thrones-season-4-jpg.jpg");
+        textSliderView2.description("Game of Thrones2").image("http://pic25.nipic.com/20121209/9252150_194258033000_2.jpg");
         textSliderView2.setOnSliderClickListener(this);
 
         TextSliderView textSliderView3 = new TextSliderView(getActivity());
-        textSliderView3.description("Game of Thrones3").image("http://images.boomsbeat.com/data/images/full/19640/game-of-thrones-season-4-jpg.jpg");
+        textSliderView3.description("Game of Thrones3").image("http://pic25.nipic.com/20121209/9252150_194258033000_2.jpg");
         textSliderView3.setOnSliderClickListener(this);
 
         sliderLayout.addSlider(textSliderView1);

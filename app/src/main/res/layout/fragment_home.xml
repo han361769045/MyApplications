@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:scrollbars="none"
     android:layout_height="match_parent"
+    android:scrollbars="none"
     tools:context=".fragments.HomeFragment">
 
     <LinearLayout
@@ -32,18 +32,30 @@
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_margin="@dimen/card_margin"
                     android:clickable="true"
                     android:foreground="?android:attr/selectableItemBackground"
-                    app:contentPadding="5dp"
-                    android:layout_margin="@dimen/card_margin"
-                    app:cardCornerRadius="5dp">
+                    app:cardBackgroundColor="@color/c5"
+                    app:cardCornerRadius="5dp"
+                    app:contentPadding="5dp">
 
-                    <ImageView
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:src="@mipmap/f_static_00" />
+                        android:layout_height="match_parent">
 
+                        <ImageView
+                            android:id="@+id/mei_rong"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:src="@mipmap/home_icon_meirong" />
+
+                        <TextView
+                            style="@style/home_text"
+                            android:layout_below="@id/mei_rong"
+                            android:layout_centerHorizontal="true"
+                            android:text="美容" />
+                    </RelativeLayout>
                 </android.support.v7.widget.CardView>
             </LinearLayout>
 
@@ -56,30 +68,62 @@
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:clickable="true"
+                    android:layout_margin="@dimen/card_margin"
                     android:layout_weight="1"
-                    app:cardCornerRadius="5dp">
+                    android:clickable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardBackgroundColor="@color/c2"
+                    app:cardCornerRadius="5dp"
+                    app:contentPadding="5dp">
 
-                    <ImageView
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@mipmap/f_static_00" />
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/mei_jia"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:src="@mipmap/home_icon_meijia" />
+
+                        <TextView
+                            style="@style/home_text"
+                            android:layout_centerInParent="true"
+                            android:layout_toRightOf="@id/mei_jia"
+                            android:text="美甲" />
+                    </RelativeLayout>
 
                 </android.support.v7.widget.CardView>
 
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    android:layout_margin="@dimen/card_margin"
                     android:layout_weight="1"
                     android:clickable="true"
-                    app:cardCornerRadius="5dp">
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardBackgroundColor="@color/colorAccent"
+                    app:cardCornerRadius="5dp"
+                    app:contentPadding="5dp">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@mipmap/f_static_00" />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/mei_fa"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:src="@mipmap/home_icon_meijie" />
+
+                        <TextView
+                            style="@style/home_text"
+                            android:layout_centerInParent="true"
+                            android:layout_toRightOf="@id/mei_fa"
+                            android:text="美发" />
+                    </RelativeLayout>
 
                 </android.support.v7.widget.CardView>
 
@@ -96,35 +140,67 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:clickable="true"
                 android:orientation="vertical">
 
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    android:layout_margin="@dimen/card_margin"
                     android:layout_weight="1"
-                    app:cardCornerRadius="5dp">
+                    android:clickable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardBackgroundColor="@color/c2"
+                    app:cardCornerRadius="5dp"
+                    app:contentPadding="5dp">
 
-                    <ImageView
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@mipmap/f_static_00" />
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/mei_zu"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:src="@mipmap/home_icon_foot" />
+
+                        <TextView
+                            style="@style/home_text"
+                            android:layout_centerInParent="true"
+                            android:layout_toRightOf="@id/mei_zu"
+                            android:text="美足" />
+                    </RelativeLayout>
 
                 </android.support.v7.widget.CardView>
 
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    android:layout_margin="@dimen/card_margin"
                     android:layout_weight="1"
                     android:clickable="true"
-                    app:cardCornerRadius="5dp">
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardBackgroundColor="@color/colorAccent"
+                    app:cardCornerRadius="5dp"
+                    app:contentPadding="5dp">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@mipmap/f_static_00" />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/jian_shen"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:src="@mipmap/home_icon_meijie" />
+
+                        <TextView
+                            style="@style/home_text"
+                            android:layout_centerInParent="true"
+                            android:layout_toRightOf="@id/jian_shen"
+                            android:text="健身" />
+                    </RelativeLayout>
 
                 </android.support.v7.widget.CardView>
 
@@ -139,15 +215,30 @@
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_margin="@dimen/card_margin"
                     android:clickable="true"
-                    app:cardCornerRadius="5dp">
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardBackgroundColor="@color/c5"
+                    app:cardCornerRadius="5dp"
+                    app:contentPadding="5dp">
 
-                    <ImageView
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:src="@mipmap/f_static_00" />
+                        android:layout_height="match_parent">
 
+                        <ImageView
+                            android:id="@+id/zhengxing_mei_rong"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:src="@mipmap/home_icon_meirong" />
+
+                        <TextView
+                            style="@style/home_text"
+                            android:layout_below="@id/zhengxing_mei_rong"
+                            android:layout_centerHorizontal="true"
+                            android:text="美容" />
+                    </RelativeLayout>
                 </android.support.v7.widget.CardView>
             </LinearLayout>
 
