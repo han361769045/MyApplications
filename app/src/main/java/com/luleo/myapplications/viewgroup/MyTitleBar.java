@@ -1,36 +1,18 @@
 package com.luleo.myapplications.viewgroup;
 
+import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapShader;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.ColorFilter;
-import android.graphics.Matrix;
-import android.graphics.Paint;
-import android.graphics.Rect;
-import android.graphics.RectF;
-import android.graphics.Shader;
-import android.graphics.SweepGradient;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
-import android.support.v7.widget.TintManager;
-import android.support.v7.widget.TintTypedArray;
-import android.support.v7.widget.Toolbar;
-import android.text.TextPaint;
+import android.support.v7.internal.widget.TintTypedArray;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -42,7 +24,7 @@ import com.luleo.myapplications.R;
 /**
  * Created by leo on 2015/10/23.
  */
-public class MyTitleBar extends RelativeLayout implements Parcelable {
+public class MyTitleBar extends RelativeLayout {
 
     private static final String TAG = "MyTitleBar";
 
@@ -58,6 +40,10 @@ public class MyTitleBar extends RelativeLayout implements Parcelable {
 
     private ImageView logoView;
 
+    private View mCustomView;
+
+    private int mCustomViewId;
+
     private EditText mSearchView;
 
     private int mTitleTextColor, mLeftTextColor, mRightTextColor, mSearchHintTextColor;
@@ -66,57 +52,15 @@ public class MyTitleBar extends RelativeLayout implements Parcelable {
 
     private int textSize = 15;
 
-    private TintManager mTintManager;
+    private final AppCompatDrawableManager mDrawableManager;
 
     private Drawable searchDrawable;
 
-    private int mRightTextMarginRight;
+    private int mRightTextMarginRight, mleftTextMarginLeft;
+
+    private int mLeftTextDrawablePadding, mRightTextDrawablePadding;
 
     private boolean mLogoShape;
-
-    private int mBorderColor = Color.BLACK;
-
-    private int mBorderWidth = 0;
-
-    private OnNavigationClickListener onNavigationClickListener;
-
-    private OnRightClickListener onRightClickListener;
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-
-    }
-
-
-    public static final Parcelable.Creator<MyTitleBar> CREATOR = new Parcelable.Creator<MyTitleBar>() {
-        public MyTitleBar createFromParcel(Parcel in) {
-            return null;
-        }
-
-        @Override
-        public MyTitleBar[] newArray(int size) {
-            return new MyTitleBar[0];
-        }
-    };
-
-
-    public interface OnNavigationClickListener {
-
-        void onNavClick(View v);
-
-    }
-
-    public interface OnRightClickListener {
-
-        void onNavClick(View v);
-
-    }
-
 
     public MyTitleBar(Context context) {
         this(context, null);
@@ -126,13 +70,12 @@ public class MyTitleBar extends RelativeLayout implements Parcelable {
         this(context, attrs, 0);
     }
 
-    public MyTitleBar(Context context, AttributeSet attrs, int defStyleAttr) {
+    public MyTitleBar(final Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-
-
         final TintTypedArray a = TintTypedArray.obtainStyledAttributes(getContext(), attrs, R.styleable.MyTitleBar, defStyleAttr, 0);
 
-        mRightTextMarginRight=a.getDimensionPixelSize(R.styleable.MyTitleBar_mRightTextMarginRight, 20);
+        mRightTextMarginRight = a.getDimensionPixelSize(R.styleable.MyTitleBar_mRightTextMarginRight, pxFromDp(0));
+        mleftTextMarginLeft = a.getDimensionPixelSize(R.styleable.MyTitleBar_mLeftTextMarginLeft, pxFromDp(0));
 
 
         final Drawable rightButtonView = a.getDrawable(R.styleable.MyTitleBar_mRightButtonIcon);
@@ -140,25 +83,28 @@ public class MyTitleBar extends RelativeLayout implements Parcelable {
             setRightButtonIcon(rightButtonView);
         }
 
-
         final CharSequence mRightText = a.getText(R.styleable.MyTitleBar_mRightText);
         if (!TextUtils.isEmpty(mRightText)) {
             setRightText(mRightText);
         }
 
-        final Drawable rightTextDrawable = a.getDrawable(R.styleable.MyTitleBar_mRightTextDrawable);
-
-        if(rightTextDrawable!=null){
-
-            rightTextDrawable.setBounds(0,0,rightTextDrawable.getMinimumWidth(),rightTextDrawable.getMinimumHeight());
-
-            mRightTextView.setCompoundDrawables(null,null,rightTextDrawable,null);
+        mRightTextDrawablePadding = a.getDimensionPixelSize(R.styleable.MyTitleBar_mRightTextDrawablePadding, pxFromDp(5));
+        final Drawable mRightTextRightDrawable = a.getDrawable(R.styleable.MyTitleBar_mRightTextRightDrawable);
+        if (mRightTextRightDrawable != null) {
+            mRightTextRightDrawable.setBounds(0, 0, mRightTextRightDrawable.getMinimumWidth(), mRightTextRightDrawable.getMinimumHeight());
+            mRightTextView.setCompoundDrawablePadding(mRightTextDrawablePadding);
+            mRightTextView.setCompoundDrawables(null, null, mRightTextRightDrawable, null);
+        }
+        final Drawable mRightTextLeftDrawable = a.getDrawable(R.styleable.MyTitleBar_mRightTextLeftDrawable);
+        if (mRightTextLeftDrawable != null) {
+            mRightTextLeftDrawable.setBounds(0, 0, mRightTextLeftDrawable.getMinimumWidth(), mRightTextLeftDrawable.getMinimumHeight());
+            mRightTextView.setCompoundDrawablePadding(mRightTextDrawablePadding);
+            mRightTextView.setCompoundDrawables(mRightTextLeftDrawable, null, null, null);
         }
 
 
         if (a.hasValue(R.styleable.MyTitleBar_mRightTextColor)) {
             setRightTextColor(a.getColor(R.styleable.MyTitleBar_mRightTextColor, 0xffffffff));
-
         }
 
         if (a.hasValue(R.styleable.MyTitleBar_mRightTextSize)) {
@@ -181,12 +127,12 @@ public class MyTitleBar extends RelativeLayout implements Parcelable {
             setSearchText(searchHintText);
         }
 
-        final Drawable searchDrawableLeft = a.getDrawable(R.styleable.MyTitleBar_mSearchViewDrwableLeft);
+        final Drawable searchDrawableLeft = a.getDrawable(R.styleable.MyTitleBar_mSearchViewDrawableLeft);
         if (searchDrawableLeft != null) {
             setSearchDrawableLeft(searchDrawableLeft);
         }
 
-        final Drawable searchDrawableRight = a.getDrawable(R.styleable.MyTitleBar_mSearchViewDrwableRight);
+        final Drawable searchDrawableRight = a.getDrawable(R.styleable.MyTitleBar_mSearchViewDrawableRight);
         if (searchDrawableRight != null) {
             setSearchDrawableRight(searchDrawableRight);
         }
@@ -212,27 +158,86 @@ public class MyTitleBar extends RelativeLayout implements Parcelable {
             setLeftTextSize(a.getDimensionPixelSize(R.styleable.MyTitleBar_mLeftTextSize, textSize));
         }
 
+        mLeftTextDrawablePadding = a.getDimensionPixelSize(R.styleable.MyTitleBar_mLeftTextDrawablePadding, pxFromDp(5));
+
+        final Drawable leftTextRightDrawable = a.getDrawable(R.styleable.MyTitleBar_mLeftTextRightDrawable);
+        if (leftTextRightDrawable != null) {
+            leftTextRightDrawable.setBounds(0, 0, leftTextRightDrawable.getMinimumWidth(), leftTextRightDrawable.getMinimumHeight());
+            mLeftTextView.setCompoundDrawablePadding(mLeftTextDrawablePadding);
+            mLeftTextView.setCompoundDrawables(null, null, leftTextRightDrawable, null);
+        }
+
+        final Drawable leftTextLeftDrawable = a.getDrawable(R.styleable.MyTitleBar_mLeftTextLeftDrawable);
+        if (leftTextLeftDrawable != null) {
+            leftTextLeftDrawable.setBounds(0, 0, leftTextLeftDrawable.getMinimumWidth(), leftTextLeftDrawable.getMinimumHeight());
+            mLeftTextView.setCompoundDrawablePadding(mLeftTextDrawablePadding);
+            mLeftTextView.setCompoundDrawables(leftTextLeftDrawable, null, null, null);
+        }
+
         final Drawable logoDrawable = a.getDrawable(R.styleable.MyTitleBar_mLogoIcon);
         if (logoDrawable != null) {
             setLogoIcon(logoDrawable);
         }
 
-//        if(a.hasValue(R.styleable.MyTitleBar_mCircleLogo)){
-//            mLogoShape = a.getBoolean(R.styleable.MyTitleBar_mCircleLogo,false);
-//        }
-//
-//        if(a.hasValue(R.styleable.MyTitleBar_border_width)){
-//            mBorderWidth = a.getDimensionPixelSize(R.styleable.MyTitleBar_border_width, 0);
-//        }
-//
-//        if(a.hasValue(R.styleable.MyTitleBar_border_color)){
-//            mBorderColor = a.getColor(R.styleable.MyTitleBar_border_color, Color.BLACK);
-//        }
+        if (a.hasValue(R.styleable.MyTitleBar_mCustomView)) {
+            mCustomViewId = a.getResourceId(R.styleable.MyTitleBar_mCustomView, 0);
+        }
+
+        if (mCustomViewId != 0) {
+            setCustomView(mCustomViewId);
+        }
+
+        if (mNavButtonView != null) {
+            mNavButtonView.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (context instanceof Activity) {
+                        ((Activity) context).finish();
+                    }
+                }
+            });
+        }
 
         a.recycle();
 
-        mTintManager = a.getTintManager();
+        mDrawableManager = AppCompatDrawableManager.get();
     }
+
+    /**
+     * @param resId
+     */
+    public void setCustomView(@LayoutRes int resId) {
+        mCustomView = inflate(getContext(), resId, null);
+        setCustomView(mCustomView);
+    }
+
+    /**
+     * @param customView
+     */
+    public void setCustomView(View customView) {
+        mCustomView = customView;
+        if (customView != null) {
+            if (mTitleTextView != null) {
+                mTitleTextView.setVisibility(GONE);
+            }
+            LayoutParams layoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+            layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+            mCustomView.setLayoutParams(layoutParams);
+            addView(customView, layoutParams);
+        }
+    }
+
+
+    public void setCustomViewOnClickListener(OnClickListener listener) {
+        if (mCustomView != null) {
+            mCustomView.setOnClickListener(listener);
+        }
+    }
+
+    public View getmCustomView() {
+        return mCustomView;
+    }
+
 
     /**
      * set Navigation  ClickListener
@@ -241,7 +246,7 @@ public class MyTitleBar extends RelativeLayout implements Parcelable {
      */
     public void setNavigationOnClickListener(OnClickListener listener) {
 //        ensureNavButtonView();
-        if (mNavButtonView!=null)
+        if (mNavButtonView != null)
             mNavButtonView.setOnClickListener(listener);
     }
 
@@ -252,13 +257,14 @@ public class MyTitleBar extends RelativeLayout implements Parcelable {
      */
     public void setRightButtonOnClickListener(OnClickListener listener) {
         //ensureRightButtonView();
-        if(mRightButtonView!=null)
+        if (mRightButtonView != null)
             mRightButtonView.setOnClickListener(listener);
 
     }
 
     /**
      * set Search ClickListener
+     *
      * @param listener
      */
     public void setSearchViewOnClickListener(OnClickListener listener) {
@@ -269,21 +275,22 @@ public class MyTitleBar extends RelativeLayout implements Parcelable {
 
     /**
      * set Right ClickListener
+     *
      * @param listener
      */
-    public void setRightTextOnClickListener(OnClickListener listener){
-        if(mRightTextView!=null)
+    public void setRightTextOnClickListener(OnClickListener listener) {
+        if (mRightTextView != null)
             mRightTextView.setOnClickListener(listener);
 
     }
 
-    public void setLeftTextOnClickListener(OnClickListener listener){
-        if(mLeftTextView!=null)
+    public void setLeftTextOnClickListener(OnClickListener listener) {
+        if (mLeftTextView != null)
             mLeftTextView.setOnClickListener(listener);
     }
 
-    public void setLogoOnClickListener(OnClickListener listener){
-        if(logoView!=null)
+    public void setLogoOnClickListener(OnClickListener listener) {
+        if (logoView != null)
             logoView.setOnClickListener(listener);
 
     }
@@ -365,11 +372,11 @@ public class MyTitleBar extends RelativeLayout implements Parcelable {
 
 
     public void setRightButtonIcon(@DrawableRes int resId) {
-        setRightButtonIcon(mTintManager.getDrawable(resId));
+        setRightButtonIcon(mDrawableManager.getDrawable(getContext(),resId));
     }
 
     public void setNavigationIcon(@DrawableRes int resId) {
-        setNavButtonIcon(mTintManager.getDrawable(resId));
+        setNavButtonIcon(mDrawableManager.getDrawable(getContext(),resId));
     }
 
     public void setNavButtonIcon(@Nullable Drawable icon) {
@@ -392,11 +399,11 @@ public class MyTitleBar extends RelativeLayout implements Parcelable {
         }
     }
 
-    public void setLogoIcon(@DrawableRes int resId){
-        setLogoIcon(mTintManager.getDrawable(resId));
+    public void setLogoIcon(@DrawableRes int resId) {
+        setLogoIcon(mDrawableManager.getDrawable(getContext(),resId));
     }
 
-    public void setLogoIcon(@Nullable Drawable icon){
+    public void setLogoIcon(@Nullable Drawable icon) {
         if (icon != null) {
             ensureLogoView();
         }
@@ -405,19 +412,19 @@ public class MyTitleBar extends RelativeLayout implements Parcelable {
         }
     }
 
-    private void ensureLogoView(){
+    private void ensureLogoView() {
         if (logoView == null) {
             LayoutParams layoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
-            if (!mLogoShape){
-                logoView = new  CircleImageView(getContext());
+            if (!mLogoShape) {
+                logoView = new CircleImageView(getContext());
                 layoutParams = new LayoutParams(100, 100);
-            }else{
+            } else {
                 logoView = new ImageView(getContext(), null, R.attr.toolbarNavigationButtonStyle);
             }
             logoView.setId(R.id.m_logo);
             if (mLeftTextView != null) {
                 layoutParams.addRule(RelativeLayout.RIGHT_OF, R.id.m_left_text);
-            }else if (mNavButtonView != null) {
+            } else if (mNavButtonView != null) {
                 layoutParams.addRule(RelativeLayout.RIGHT_OF, R.id.m_nav_button);
             } else {
                 layoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
@@ -460,7 +467,7 @@ public class MyTitleBar extends RelativeLayout implements Parcelable {
                 layoutParams.addRule(RelativeLayout.CENTER_VERTICAL);
                 layoutParams.alignWithParent = true;
                 if (mNavButtonView == null) {
-                    layoutParams.setMargins(20, 0, 5, 0);
+                    layoutParams.setMargins(mleftTextMarginLeft, 0, 5, 0);
                     layoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
                 } else {
                     layoutParams.addRule(RelativeLayout.RIGHT_OF, R.id.m_nav_button);
@@ -587,6 +594,10 @@ public class MyTitleBar extends RelativeLayout implements Parcelable {
         if (mTitleTextView != null) {
             mTitleTextView.setText(title);
         }
+        if (mCustomView != null) {
+            mCustomView.setVisibility(GONE);
+        }
+        mTitleTextView.setVisibility(VISIBLE);
         mTitleText = title;
     }
 
@@ -599,4 +610,42 @@ public class MyTitleBar extends RelativeLayout implements Parcelable {
     }
 
 
+    private int dpFromPx(final float px) {
+        return (int) (px / getResources().getDisplayMetrics().density);
+    }
+
+    private int pxFromDp(final float dp) {
+        return (int) (dp * getResources().getDisplayMetrics().density);
+    }
+
+
+    public ImageButton getmRightButtonView() {
+        return mRightButtonView;
+    }
+
+
+    public void showCustomView(){
+        if (mCustomView!=null){
+            mCustomView.setVisibility(VISIBLE);
+            mTitleTextView.setVisibility(GONE);
+        }
+    }
+    public void showLeftTextView(){
+        if (mLeftTextView!=null)
+            mLeftTextView.setVisibility(VISIBLE);
+    }
+
+    public void hideLeftTextView(){
+        if (mLeftTextView!=null)
+            mLeftTextView.setVisibility(GONE);
+    }
+
+    public void showRightTextView(){
+        if (mRightTextView!=null)
+            mRightTextView.setVisibility(VISIBLE);
+    }
+    public void hideRightTextView(){
+        if (mRightTextView!=null)
+            mRightTextView.setVisibility(GONE);
+    }
 }

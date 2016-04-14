@@ -15,14 +15,12 @@
         android:minHeight="50dp"
         app:mNavButtonIcon="@mipmap/ic_launcher"
         app:mRightButtonIcon="@mipmap/ic_launcher"
-        app:mTitle="测试"/>
+        app:mTitle="测试" />
 
     <com.marshalchen.ultimaterecyclerview.CustomUltimateRecyclerview
         android:id="@+id/ultimate_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:recyclerviewEmptyView="@layout/empty_view"
-        >
-    </com.marshalchen.ultimaterecyclerview.CustomUltimateRecyclerview>
+        app:recyclerviewEmptyView="@layout/empty_view"></com.marshalchen.ultimaterecyclerview.CustomUltimateRecyclerview>
 
 </LinearLayout>

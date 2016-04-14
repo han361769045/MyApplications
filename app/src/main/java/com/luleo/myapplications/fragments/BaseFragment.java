@@ -11,8 +11,8 @@ import com.luleo.myapplications.tools.AndroidTool;
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.rest.RestService;
 import org.androidannotations.annotations.sharedpreferences.Pref;
+import org.androidannotations.rest.spring.annotations.RestService;
 
 /**
  * Created by leo on 2015/7/21.

@@ -5,7 +5,7 @@ import android.content.Context;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 import org.androidannotations.annotations.Trace;
-import org.androidannotations.api.rest.RestErrorHandler;
+import org.androidannotations.rest.spring.api.RestErrorHandler;
 import org.springframework.core.NestedRuntimeException;
 
 /**

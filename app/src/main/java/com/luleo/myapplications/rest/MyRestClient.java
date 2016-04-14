@@ -3,25 +3,26 @@ package com.luleo.myapplications.rest;
 
 import com.luleo.myapplications.model.BaseModel;
 
-import org.androidannotations.annotations.rest.Accept;
-import org.androidannotations.annotations.rest.Delete;
-import org.androidannotations.annotations.rest.Get;
-import org.androidannotations.annotations.rest.Post;
-import org.androidannotations.annotations.rest.Put;
-import org.androidannotations.annotations.rest.RequiresAuthentication;
-import org.androidannotations.annotations.rest.RequiresCookie;
-import org.androidannotations.annotations.rest.RequiresHeader;
-import org.androidannotations.annotations.rest.Rest;
-import org.androidannotations.annotations.rest.SetsCookie;
-import org.androidannotations.api.rest.MediaType;
-import org.androidannotations.api.rest.RestClientErrorHandling;
-import org.androidannotations.api.rest.RestClientHeaders;
-import org.androidannotations.api.rest.RestClientRootUrl;
-import org.androidannotations.api.rest.RestClientSupport;
+import org.androidannotations.rest.spring.annotations.Accept;
+import org.androidannotations.rest.spring.annotations.Delete;
+import org.androidannotations.rest.spring.annotations.Get;
+import org.androidannotations.rest.spring.annotations.Post;
+import org.androidannotations.rest.spring.annotations.Put;
+import org.androidannotations.rest.spring.annotations.RequiresAuthentication;
+import org.androidannotations.rest.spring.annotations.RequiresCookie;
+import org.androidannotations.rest.spring.annotations.RequiresHeader;
+import org.androidannotations.rest.spring.annotations.Rest;
+import org.androidannotations.rest.spring.annotations.SetsCookie;
+import org.androidannotations.rest.spring.api.MediaType;
+import org.androidannotations.rest.spring.api.RestClientErrorHandling;
+import org.androidannotations.rest.spring.api.RestClientHeaders;
+import org.androidannotations.rest.spring.api.RestClientRootUrl;
+import org.androidannotations.rest.spring.api.RestClientSupport;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.ByteArrayHttpMessageConverter;
 import org.springframework.http.converter.FormHttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.http.converter.json.GsonHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.util.MultiValueMap;
 
@@ -33,7 +34,7 @@ import org.springframework.util.MultiValueMap;
         requestFactory = MyRequestFactory.class,
         interceptors = { MyInterceptor.class },
         converters = {StringHttpMessageConverter.class,	MappingJackson2HttpMessageConverter.class,
-                  FormHttpMessageConverter.class,ByteArrayHttpMessageConverter.class })
+                  FormHttpMessageConverter.class,ByteArrayHttpMessageConverter.class,GsonHttpMessageConverter.class })
 public interface MyRestClient extends RestClientRootUrl, RestClientSupport, RestClientHeaders, RestClientErrorHandling {
 
     @Post("/Post/{id}")

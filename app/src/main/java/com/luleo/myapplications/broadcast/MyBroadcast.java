@@ -1,8 +1,5 @@
 package com.luleo.myapplications.broadcast;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
@@ -10,22 +7,20 @@ import org.androidannotations.annotations.EReceiver;
 import org.androidannotations.annotations.ReceiverAction;
 import org.androidannotations.annotations.SystemService;
 import org.androidannotations.api.BackgroundExecutor;
+import org.androidannotations.api.support.content.AbstractBroadcastReceiver;
 
 /**
  * Created by leo on 2015/7/21.
  */
 
 @EReceiver
-public class MyBroadcast extends BroadcastReceiver {
+public class MyBroadcast extends AbstractBroadcastReceiver {
 
     @SystemService
     ConnectivityManager manager;
 
 
-
-
-
-    @ReceiverAction("android.net.conn.CONNECTIVITY_CHANGE")
+    @ReceiverAction(value=ConnectivityManager.CONNECTIVITY_ACTION,dataSchemes = "http")
     public void connectivity(){
         NetworkInfo mobileInfo = manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
         NetworkInfo wifiInfo = manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
@@ -33,13 +28,6 @@ public class MyBroadcast extends BroadcastReceiver {
         if(activeInfo==null){
             BackgroundExecutor.cancelAll("",true);
         }
-
     }
 
-
-
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        // empty, will be overridden in generated subclass
-    }
 }

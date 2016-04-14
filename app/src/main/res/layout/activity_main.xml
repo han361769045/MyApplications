@@ -32,7 +32,6 @@
                     android:minHeight="50dp"
                     app:mNavButtonIcon="@mipmap/default_header"
                     app:mRightText="大连"
-                    app:mRightTextDrawable="@mipmap/home_city"
                     app:mTitle="@string/home" />
 
                 <FrameLayout
